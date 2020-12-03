@@ -1,0 +1,30 @@
+{
+  "name": "the-compendium-server",
+  "version": "1.0.0",
+  "description": "Node.js RESTful CRUD API for The Compendium; with Node.js, Express, and MongoDB.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongodb",
+    "rest",
+    "api",
+    "the-compendium"
+  ],
+  "author": "Nicolas Brahimir",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.15",
+    "monk": "^7.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
