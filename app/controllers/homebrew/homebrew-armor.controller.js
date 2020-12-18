@@ -45,6 +45,7 @@ exports.create = (req, res) => {
         rarity: req.body.rarity ? req.body.rarity : "Unknown",
         value: req.body.value ? req.body.value : "Unknown",
         description: req.body.description ? req.body.description : "None",
+        ratings: req.body.ratings ? req.body.ratings : [],
     });
 
     // Save Homebrew Armor in the database

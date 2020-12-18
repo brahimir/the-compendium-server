@@ -25,17 +25,17 @@ db.mongoose
     useUnifiedTopology: true
   })
   .then(() => {
-    console.log("Connected to The Compendium database!");
+    console.log("CONNECTED - THE COMPENDIUM DATABASE API");
   })
   .catch(err => {
-    console.log("Cannot connect to The Compendium database!", err);
+    console.log("CANNOT CONNECT - THE COMPENDIUM DATABASE API", err);
     process.exit();
   });
 
 // ! start:: ROUTES
 // Landing route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to The Compendium application." });
+  res.json({ message: "LANDING -THE COMPENDIUM SERVER" });
 });
 
 // Homebrew Weapons Routes

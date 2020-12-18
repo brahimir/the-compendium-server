@@ -11,6 +11,7 @@ module.exports = mongoose => {
         components: String,
         description: String,
         at_higher_levels: String,
+        ratings: Array
     }, {
         timestamps: true
     });

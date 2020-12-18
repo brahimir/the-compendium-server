@@ -57,6 +57,7 @@ exports.create = (req, res) => {
         components: req.body.components ? req.body.components : null,
         description: req.body.description ? req.body.description : null,
         at_higher_levels: req.body.at_higher_levels ? req.body.at_higher_levels : null,
+        ratings: req.body.ratings ? req.body.ratings : [],
     });
 
     // Save Homebrew Spell in the database

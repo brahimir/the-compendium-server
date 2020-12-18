@@ -1,13 +1,16 @@
 const dbConfig = require("../config/db.config.js");
 
+// Mongoose
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
 const db = {};
 db.mongoose = mongoose;
+
+// ! MongoDB url
 db.url = dbConfig.url;
 
-// * Collections
+// * Models
 db.homebrewWeapons = require("./weapon.model.js")(mongoose);
 db.homebrewArmors = require("./armor.model.js")(mongoose);
 db.homebrewItems = require("./item.model.js")(mongoose);

@@ -94,6 +94,7 @@ exports.create = (req, res) => {
         abilities: req.body.abilities ? req.body.abilities : null,
         actions: req.body.actions ? req.body.actions : null,
         legendary_actions: req.body.legendary_actions ? req.body.legendary_actions : null,
+        ratings: req.body.ratings ? req.body.ratings : [],
     });
 
     // Save Homebrew Npc in the database

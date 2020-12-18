@@ -53,6 +53,7 @@ module.exports = mongoose => {
         abilities: Array,
         actions: Array,
         legendary_actions: Array,
+        ratings: Array
     }, {
         timestamps: true
     });

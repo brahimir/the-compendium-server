@@ -6,6 +6,7 @@ module.exports = mongoose => {
         rarity: String,
         value: String,
         description: String,
+        ratings: Array
     }, {
         timestamps: true
     });

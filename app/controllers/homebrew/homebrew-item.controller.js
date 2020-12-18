@@ -28,6 +28,7 @@ exports.create = (req, res) => {
         value: req.body.value ? req.body.value : "Unknown",
         properties: req.body.properties ? req.body.properties : "None",
         description: req.body.description ? req.body.description : "None",
+        ratings: req.body.ratings ? req.body.ratings : [],
     });
 
     // Save Homebrew Item in the database
