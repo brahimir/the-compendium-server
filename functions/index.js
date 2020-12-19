@@ -10,17 +10,16 @@ const functions = require('firebase-functions');
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require("cors");
+// const cors = require("cors");
 
 const app = express();
 
-var corsOptions = {
-//   origin: "http://localhost:1900"
-  origin: "https://us-central1-the-compendium-server.cloudfunctions.net/app"
-};
+// var corsOptions = {
+//   origin: "*"
+// };
 
 // CORs
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 // Parse requests of content-type - application/json
 app.use(bodyParser.json());
