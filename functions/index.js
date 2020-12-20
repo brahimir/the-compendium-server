@@ -40,7 +40,7 @@ db.mongoose
 // ! start:: ROUTES
 // Landing route
 app.get("/", (req, res) => {
-  res.send("STUFF -THE COMPENDIUM SERVER");
+  res.send("LANDING - THE COMPENDIUM SERVER");
 });
 
 // Homebrew Weapons Routes
