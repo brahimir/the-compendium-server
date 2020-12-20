@@ -79,6 +79,7 @@ exports.create = (req, res) => {
         name: req.body.name,
         size: req.body.size ? req.body.size : null,
         alignment: req.body.alignment ? req.body.alignment : null,
+        armor_class: req.body.armor_class ? req.body.armor_class : null,
         hit_points: req.body.hit_points,
         alt_hit_points: req.body.alt_hit_points ? req.body.alt_hit_points : null,
         speed: req.body.speed ? req.body.speed : null,
