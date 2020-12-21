@@ -4,17 +4,17 @@ const functions = require('firebase-functions');
 const express = require("express");
 const bodyParser = require("body-parser");
 // TODO - Add cors.
-// const cors = require("cors");
+const cors = require("cors");
 
 const app = express();
 
 // todo - Add origins to cors.
-// var corsOptions = {
-//   origin: "*"
-// };
+var corsOptions = {
+  origin: ["https://the-compendium.web.app", "http://localhost:1900"]
+};
 
 // CORs
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 // Parse requests of content-type - application/json
 app.use(bodyParser.json());
