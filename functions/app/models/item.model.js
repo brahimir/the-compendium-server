@@ -1,12 +1,18 @@
 module.exports = mongoose => {
     var schema = mongoose.Schema({
+        id: Number,
+        // start:: Official Schema
         name: String,
-        type: String,
-        requires_attunement: Boolean,
-        rarity: String,
-        value: String,
-        description: String,
-        ratings: Array
+        equipment_category: Object,
+        gear_category: Object,
+        cost: {
+          quantity: Number,
+          unit: String,
+        },
+        weight: Number,
+        desc: Array,
+        contents: Object,
+        // end:: Official Schema
     }, {
         timestamps: true
     });

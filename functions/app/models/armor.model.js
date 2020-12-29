@@ -1,14 +1,25 @@
 module.exports = mongoose => {
     var schema = mongoose.Schema({
+        id: Number,
+        // start:: Official Schema
         name: String,
-        type: String,
-        armor_class: String,
+        armor_category: String,
+        armor_class: {
+          base: Number,
+          dex_bonus: Boolean,
+          max_bonus: Number,
+        },
+        str_minimum: Number,
         stealth_disadvantage: Boolean,
-        strength_requirement: String,
+        weight: Number,
+        cost: {
+          quantity: Number,
+          unit: String,
+        },
+        // end:: Official Schema
         requires_attunement: Boolean,
         rarity: String,
-        value: String,
-        description: String,
+        desc: Array,
         ratings: Array
     }, {
         timestamps: true

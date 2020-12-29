@@ -1,64 +1,44 @@
-module.exports = mongoose => {
-    var schema = mongoose.Schema({
-        name: String,
-        size: String,
-        alignment: String,
-        armor_class: Number,
-        hit_points: Number,
-        alt_hit_points: String,
-        speed: Array,
-        ability_scores: {
-            STR: String,
-            DEX: String,
-            CON: String,
-            INT: String,
-            WIS: String,
-            CHA: String
-        },
-        saving_throws: {
-            STR: String,
-            DEX: String,
-            CON: String,
-            INT: String,
-            WIS: String,
-            CHA: String
-        },
-        skills: {
-            acrobatics: String,
-            animal_handling: String,
-            arcana: String,
-            atheltics: String,
-            deception: String,
-            endurance: String,
-            history: String,
-            insight: String,
-            intimidation: String,
-            investigation: String,
-            medicine: String,
-            nature: String,
-            perception: String,
-            performance: String,
-            persuasion: String,
-            religion: String,
-            sleight_of_hand: String,
-            stealth: String,
-            survival: String
-        },
-        damage_immunities: Array,
-        condition_immunities: Array,
-        senses: Array,
-        languages: Array,
-        challenge_rating: Number,
-        experience: String,
-        abilities: Array,
-        actions: Array,
-        legendary_actions: Array,
-        ratings: Array
-    }, {
-        timestamps: true
-    });
+module.exports = (mongoose) => {
+  var schema = mongoose.Schema(
+    {
+      id: String,
+      // start:: Official Schema
+      name: String,
+      size: String,
+      type: String,
+      subtype: String,
+      alignment: String,
+      armor_class: Number,
+      hit_points: Number,
+      hit_dice: String,
+      speed: Object,
+      strength: Number,
+      dexterity: Number,
+      constitution: Number,
+      intelligence: Number,
+      wisdom: Number,
+      charisma: Number,
+      proficiencies: Object,
+      damage_vulnerabilities: Array,
+      damage_resistances: Array,
+      damage_immunities: Array,
+      condition_immunities: Array,
+      senses: Object,
+      languages: String,
+      challenge_rating: Number,
+      xp: Number,
+      special_abilities: Array,
+      actions: Array,
+      legendary_actions: Array,
+      // end:: Official Schema
+      ratings: Array,
+    },
+    {
+      timestamps: true,
+    }
+  );
 
-    // ! This mongoose model names the collection in the database upon creation.
-    const Npc = mongoose.model("homebrew_npc", schema);
-    return Npc;
+  // ! This mongoose model names the collection in the database upon creation.
+  const Npc = mongoose.model("homebrew_npc", schema);
+  return Npc;
 };

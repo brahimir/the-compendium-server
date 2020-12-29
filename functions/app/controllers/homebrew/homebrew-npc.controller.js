@@ -2,8 +2,8 @@ const db = require("../../models");
 const Npc = db.homebrewNpcs;
 
 exports.create = (req, res) => {
-    // ! start:: Validate request
-    /**
+  // ! start:: Validate request
+  /**
      * todo:: Validate other fields:
         name: String,
         size: String,
@@ -41,181 +41,189 @@ exports.create = (req, res) => {
         actions: Array,
         legendary_actions: Array,
      */
-    // Check name field
-    if (!req.body.name) {
-        res.status(400).send({
-            message: "name can not be empty!"
-        });
-        return;
-    }
-
-    // Check armor_class field
-    if (!req.body.armor_class) {
-        res.status(400).send({
-            message: "armor_class can not be empty!"
-        });
-        return;
-    }
-
-    // Check hit_points field
-    if (!req.body.hit_points) {
-        res.status(400).send({
-            message: "hit_points can not be empty!"
-        });
-        return;
-    }
-
-    // Check ability_scores field
-    if (!req.body.ability_scores) {
-        res.status(400).send({
-            message: "ability_scores can not be empty!"
-        });
-        return;
-    }
-    // ! end:: Validate request
-
-    // Create a Homebrew Npc
-    const newNpc = new Npc({
-        name: req.body.name,
-        size: req.body.size ? req.body.size : null,
-        alignment: req.body.alignment ? req.body.alignment : null,
-        armor_class: req.body.armor_class ? req.body.armor_class : null,
-        hit_points: req.body.hit_points,
-        alt_hit_points: req.body.alt_hit_points ? req.body.alt_hit_points : null,
-        speed: req.body.speed ? req.body.speed : null,
-        ability_scores: req.body.ability_scores,
-        saving_throws: req.body.saving_throws,
-        skills: req.body.skills ? req.body.skills : null,
-        damage_immunities: req.body.damage_immunities ? req.body.damage_immunities : null,
-        condition_immunities: req.body.condition_immunities ? req.body.condition_immunities : null,
-        senses: req.body.senses ? req.body.senses : null,
-        languages: req.body.languages ? req.body.languages : null,
-        challenge_rating: req.body.challenge_rating ? req.body.challenge_rating : null,
-        experience: req.body.experience ? req.body.experience : null,
-        abilities: req.body.abilities ? req.body.abilities : null,
-        actions: req.body.actions ? req.body.actions : null,
-        legendary_actions: req.body.legendary_actions ? req.body.legendary_actions : null,
-        ratings: req.body.ratings ? req.body.ratings : [],
+  // Check name field
+  if (!req.body.name) {
+    res.status(400).send({
+      message: "name can not be empty!",
     });
+    return;
+  }
 
-    // Save Homebrew Npc in the database
-    newNpc
-        .save(newNpc)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while creating the Npc."
-            });
-        });
+  // Check armor_class field
+  if (!req.body.armor_class) {
+    res.status(400).send({
+      message: "armor_class can not be empty!",
+    });
+    return;
+  }
+
+  // Check hit_points field
+  if (!req.body.hit_points) {
+    res.status(400).send({
+      message: "hit_points can not be empty!",
+    });
+    return;
+  }
+
+  // Check ability_scores field
+  if (!req.body.ability_scores) {
+    res.status(400).send({
+      message: "ability_scores can not be empty!",
+    });
+    return;
+  }
+  // ! end:: Validate request
+
+  // Create a Homebrew Npc
+  const newNpc = new Npc({
+    name: req.body.name,
+    size: req.body.size,
+    type: req.body.type,
+    subtype: req.body.subtype,
+    alignment: req.body.alignment,
+    armor_class: req.body.armor_class,
+    hit_points: req.body.hit_points,
+    hit_dice: req.body.hit_dice,
+    speed: req.body.speed,
+    strength: req.body.strength,
+    dexterity: req.body.dexterity,
+    constitution: req.body.constitution,
+    intelligence: req.body.intelligence,
+    wisdom: req.body.wisdom,
+    charisma: req.body.charisma,
+    proficiencies: req.body.proficiencies,
+    damage_vulnerabilities: req.body.damage_vulnerabilities,
+    damage_resistances: req.body.damage_resistances,
+    damage_immunities: req.body.damage_immunities,
+    condition_immunities: req.body.condition_immunities,
+    senses: req.body.senses,
+    languages: req.body.languages,
+    challenge_rating: req.body.challenge_rating,
+    special_abilities: req.body.special_abilities,
+    actions: req.body.actions,
+    legendary_actions: req.body.legendary_actions,
+    ratings: req.body.ratings,
+  });
+
+  // Save Homebrew Npc in the database
+  newNpc
+    .save(newNpc)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while creating the Npc.",
+      });
+    });
 };
 
 // Retrieve all Homebrew Npcs from the database.
 exports.findAll = (req, res) => {
-    const title = req.query.title;
-    var condition = title ? {
+  const title = req.query.title;
+  var condition = title
+    ? {
         title: {
-            $regex: new RegExp(title),
-            $options: "i"
-        }
-    } : {};
+          $regex: new RegExp(title),
+          $options: "i",
+        },
+      }
+    : {};
 
-    Npc.find(condition)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving Npcs."
-            });
-        });
+  Npc.find(condition)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving Npcs.",
+      });
+    });
 };
 
 // Find a single Homebrew Npc with an id
 exports.findOne = (req, res) => {
-    const id = req.params.id;
+  const id = req.params.id;
 
-    Npc.findById(id)
-        .then(data => {
-            if (!data)
-                res.status(404).send({
-                    message: "Not found Npc with id " + id
-                });
-            else res.send(data);
-        })
-        .catch(err => {
-            res
-                .status(500)
-                .send({
-                    message: "Error retrieving Npc with id=" + id
-                });
+  Npc.findById(id)
+    .then((data) => {
+      if (!data)
+        res.status(404).send({
+          message: "Not found Npc with id " + id,
         });
+      else res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error retrieving Npc with id=" + id,
+      });
+    });
 };
 
 // Update a Homebrew Npc by the id in the request
 exports.update = (req, res) => {
-    if (!req.body) {
-        return res.status(400).send({
-            message: "Data to update can not be empty!"
-        });
-    }
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Data to update can not be empty!",
+    });
+  }
 
-    const id = req.params.id;
+  const id = req.params.id;
 
-    Npc.findByIdAndUpdate(id, req.body, {
-            useFindAndModify: false
-        })
-        .then(data => {
-            if (!data) {
-                res.status(404).send({
-                    message: `Cannot update Npc with id=${id}. Maybe Npc was not found!`
-                });
-            } else res.send({
-                message: "Npc was updated successfully."
-            });
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error updating Npc with id=" + id
-            });
+  Npc.findByIdAndUpdate(id, req.body, {
+    useFindAndModify: false,
+  })
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot update Npc with id=${id}. Maybe Npc was not found!`,
         });
+      } else
+        res.send({
+          message: "Npc was updated successfully.",
+        });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error updating Npc with id=" + id,
+      });
+    });
 };
 
 // Delete a Homebrew Npc with the specified id in the request
 exports.delete = (req, res) => {
-    const id = req.params.id;
+  const id = req.params.id;
 
-    Npc.findByIdAndRemove(id)
-        .then(data => {
-            if (!data) {
-                res.status(404).send({
-                    message: `Cannot delete Npc with id=${id}. Maybe Npc was not found!`
-                });
-            } else {
-                res.send({
-                    message: "Npc was deleted successfully!"
-                });
-            }
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Could not delete Npc with id=" + id
-            });
+  Npc.findByIdAndRemove(id)
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot delete Npc with id=${id}. Maybe Npc was not found!`,
         });
+      } else {
+        res.send({
+          message: "Npc was deleted successfully!",
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Could not delete Npc with id=" + id,
+      });
+    });
 };
 
 // Delete all Homebrew Npcs from the database.
 exports.deleteAll = (req, res) => {
-    Npc.deleteMany({})
-        .then(data => {
-            res.send({
-                message: `${data.deletedCount} Npcs were deleted successfully!`
-            });
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while removing all Npcs."
-            });
-        });
+  Npc.deleteMany({})
+    .then((data) => {
+      res.send({
+        message: `${data.deletedCount} Npcs were deleted successfully!`,
+      });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while removing all Npcs.",
+      });
+    });
 };
