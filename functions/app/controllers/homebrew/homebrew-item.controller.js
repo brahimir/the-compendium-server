@@ -3,14 +3,8 @@ const Item = db.homebrewItems;
 
 exports.create = (req, res) => {
   // ! start:: Validate request
-  /**
-     * todo:: Validate other fields:
-        type: String,
-        requires_attunement: Boolean,
-        rarity: String,
-        value: String,
-        description: String,
-     */
+  // todo:: Validate other fields
+
   if (!req.body.name) {
     res.status(400).send({
       message: "Name can not be empty!",
@@ -27,7 +21,7 @@ exports.create = (req, res) => {
     cost: req.body.cost,
     weight: req.body.weight,
     desc: req.body.desc,
-    contents: req.body.contents
+    contents: req.body.contents,
   });
 
   // Save Homebrew Item in the database

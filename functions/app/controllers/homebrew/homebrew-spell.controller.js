@@ -3,42 +3,12 @@ const Spell = db.homebrewSpells;
 
 exports.create = (req, res) => {
   // ! start:: Validate request
-  /**
-     * todo:: Validate other fields:
-        type: String,
-        requires_attunement: Boolean,
-        rarity: String,
-        value: String,
-        description: String,
-     */
+  // todo - validate other fields.
+  
   // Check name field
   if (!req.body.name) {
     res.status(400).send({
       message: "name can not be empty!",
-    });
-    return;
-  }
-
-  // Check level field
-  if (!req.body.level) {
-    res.status(400).send({
-      message: "level can not be empty!",
-    });
-    return;
-  }
-
-  // Check casting_time field
-  if (!req.body.casting_time) {
-    res.status(400).send({
-      message: "casting_time can not be empty!",
-    });
-    return;
-  }
-
-  // Check range field
-  if (!req.body.range) {
-    res.status(400).send({
-      message: "range can not be empty!",
     });
     return;
   }

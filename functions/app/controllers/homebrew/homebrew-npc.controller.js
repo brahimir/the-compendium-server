@@ -3,44 +3,8 @@ const Npc = db.homebrewNpcs;
 
 exports.create = (req, res) => {
   // ! start:: Validate request
-  /**
-     * todo:: Validate other fields:
-        name: String,
-        size: String,
-        alignment: String,
-        alt_hit_points: String,
-        speed: String,
-        skills: {
-            acrobatics: String,
-            animal_handling: String,
-            arcana: String,
-            atheltics: String,
-            deception: String,
-            endurance: String,
-            history: String,
-            insight: String,
-            intimidation: String,
-            investigation: String,
-            medicine: String,
-            nature: String,
-            perception: String,
-            performance: String,
-            persuasion: String,
-            religion: String,
-            sleight_of_hand: String,
-            stealth: String,
-            survival: String
-        },
-        damage_immunities: Array,
-        condition_immunities: Array,
-        senses: Array,
-        languages: Array,
-        challenge_rating: Number,
-        experience: String,
-        abilities: Array,
-        actions: Array,
-        legendary_actions: Array,
-     */
+  // todo:: Validate other fields
+
   // Check name field
   if (!req.body.name) {
     res.status(400).send({
@@ -53,22 +17,6 @@ exports.create = (req, res) => {
   if (!req.body.armor_class) {
     res.status(400).send({
       message: "armor_class can not be empty!",
-    });
-    return;
-  }
-
-  // Check hit_points field
-  if (!req.body.hit_points) {
-    res.status(400).send({
-      message: "hit_points can not be empty!",
-    });
-    return;
-  }
-
-  // Check ability_scores field
-  if (!req.body.ability_scores) {
-    res.status(400).send({
-      message: "ability_scores can not be empty!",
     });
     return;
   }

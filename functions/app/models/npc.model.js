@@ -24,7 +24,7 @@ module.exports = (mongoose) => {
       damage_immunities: Array,
       condition_immunities: Array,
       senses: Object,
-      languages: String,
+      languages: Array,
       challenge_rating: Number,
       xp: Number,
       special_abilities: Array,

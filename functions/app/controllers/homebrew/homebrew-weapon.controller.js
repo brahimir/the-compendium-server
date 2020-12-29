@@ -3,29 +3,11 @@ const Weapon = db.homebrewWeapons;
 
 exports.create = (req, res) => {
   // ! start:: Validate request
-  /**
-     * todo:: Validate other fields:
-        name: String,
-        type: String,
-        is_martial: Boolean,
-        damage: String,
-        damage_type: String,
-        requires_attunement: Boolean,
-        rarity: String,
-        value: String,
-        properties: String,
-        description: String,
-     */
+  // todo - validate other fields.
+
   if (!req.body.name) {
     res.status(400).send({
       message: "Name can not be empty!",
-    });
-    return;
-  }
-
-  if (!req.body.damage) {
-    res.status(400).send({
-      message: "Damage can not be empty!",
     });
     return;
   }

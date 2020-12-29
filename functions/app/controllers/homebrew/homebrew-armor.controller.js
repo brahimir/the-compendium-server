@@ -3,25 +3,11 @@ const Armor = db.homebrewArmors;
 
 exports.create = (req, res) => {
   // ! start:: Validate request
-  /**
-     * todo:: Validate other fields:
-        stealth_disadvantage: String,
-        strength_requirement: String,
-        requires_attunement: Boolean,
-        rarity: String,
-        value: String,
-        description: String,
-     */
+  // todo:: Validate other fields:
+
   if (!req.body.name) {
     res.status(400).send({
       message: "name can not be empty!",
-    });
-    return;
-  }
-
-  if (!req.body.type) {
-    res.status(400).send({
-      message: "type can not be empty!",
     });
     return;
   }
@@ -46,7 +32,7 @@ exports.create = (req, res) => {
     requires_attunement: req.body.requires_attunement,
     rarity: req.body.rarity,
     desc: req.body.desc,
-    ratings: req.body.ratings
+    ratings: req.body.ratings,
   });
 
   // Save Homebrew Armor in the database
