@@ -4,8 +4,8 @@ module.exports = (mongoose) => {
       id: Number,
       // start:: Official Schema
       name: String,
-      desc: String,
-      higher_level: String,
+      desc: Array,
+      higher_level: Array,
       range: String,
       components: Array,
       material: String,

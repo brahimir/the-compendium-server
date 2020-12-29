@@ -12,7 +12,9 @@ module.exports = (mongoose) => {
       },
       damage: {
         damage_dice: String,
-        damage_type: String,
+        damage_type: {
+          name: String,
+        },
       },
       range: {
         normal: Number,
