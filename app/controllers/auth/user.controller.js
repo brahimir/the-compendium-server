@@ -145,8 +145,41 @@ exports.deleteAll = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while removing all Users.",
+        message: err.message || "Some error occurred while removing all Users.",
+      });
+    });
+};
+
+// AUTH - Find a single User by an email
+exports.findByEmail = (req, res) => {
+  const reqEmail = req.body.email;
+  const reqPassword = req.body.password;
+
+  User.find({ email: reqEmail })
+    .then((data) => {
+      data = data[0];
+
+      if (!data) {
+        res.status(404).send({
+          status: 404,
+          message: "Not found User with email " + reqEmail,
+        });
+      } else {
+        if (reqPassword === data.password) {
+          res.send(data);
+        } else {
+          res.status(404).send({
+            status: 404,
+            message: "Passwords do not match at " + reqEmail,
+          });
+        }
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        status: 500,
+        error: err,
+        message: "Error retrieving User with email=" + reqEmail,
       });
     });
 };

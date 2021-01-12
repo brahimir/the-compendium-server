@@ -18,8 +18,9 @@ module.exports = app => {
     // Delete a User with id
     router.delete("/:id", users.delete);
 
-    // Create a new User
-    router.delete("/", users.deleteAll);
+    // * AUTH
+    // Retrieve a single User with email
+    router.post("/auth", users.findByEmail);
 
     app.use('/api/users', router);
 };
