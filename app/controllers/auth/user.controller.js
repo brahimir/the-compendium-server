@@ -1,5 +1,5 @@
 const db = require("../../models");
-const Armor = db.homebrewArmors;
+const User = db.users;
 
 exports.create = (req, res) => {
   // ! start:: Validate request
@@ -11,45 +11,36 @@ exports.create = (req, res) => {
     });
     return;
   }
-
-  if (!req.body.armor_class) {
-    res.status(400).send({
-      message: "armor_class can not be empty!",
-    });
-    return;
-  }
   // ! end:: Validate request
 
-  // Create a Homebrew Armor
-  const newArmor = new Armor({
+  // Create a User
+  const newUser = new User({
     name: req.body.name,
-    armor_category: req.body.armor_category,
-    armor_class: req.body.armor_class,
-    str_minimum: req.body.str_minimum,
-    stealth_disadvantage: req.body.stealth_disadvantage,
-    weight: req.body.weight,
-    cost: req.body.cost,
-    requires_attunement: req.body.requires_attunement,
-    rarity: req.body.rarity,
-    desc: req.body.desc,
-    ratings: req.body.ratings,
+    username: req.body.username,
+    password: req.body.password,
+    email: req.body.email,
+    accessToken: req.body.accessToken,
+    refreshToken: req.body.refreshToken,
+    roles: req.body.roles,
+    fullName: req.body.fullName,
+    user_settings: req.body.user_settings,
   });
 
-  // Save Homebrew Armor in the database
-  newArmor
-    .save(newArmor)
+  // Save User in the database
+  newUser
+    .save(newUser)
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the newArmor.",
+          err.message || "Some error occurred while creating the newUser.",
       });
     });
 };
 
-// Retrieve all Homebrew Armors from the database.
+// Retrieve all Users from the database.
 exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title
@@ -61,37 +52,37 @@ exports.findAll = (req, res) => {
       }
     : {};
 
-  Armor.find(condition)
+  User.find(condition)
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred while retrieving Armors.",
+        message: err.message || "Some error occurred while retrieving Users.",
       });
     });
 };
 
-// Find a single Homebrew Armor with an id
+// Find a single User with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Armor.findById(id)
+  User.findById(id)
     .then((data) => {
       if (!data)
         res.status(404).send({
-          message: "Not found Armor with id " + id,
+          message: "Not found User with id " + id,
         });
       else res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving Armor with id=" + id,
+        message: "Error retrieving User with id=" + id,
       });
     });
 };
 
-// Update a Homebrew Armor by the id in the request
+// Update a User by the id in the request
 exports.update = (req, res) => {
   if (!req.body) {
     return res.status(400).send({
@@ -101,61 +92,61 @@ exports.update = (req, res) => {
 
   const id = req.params.id;
 
-  Armor.findByIdAndUpdate(id, req.body, {
+  User.findByIdAndUpdate(id, req.body, {
     useFindAndModify: false,
   })
     .then((data) => {
       if (!data) {
         res.status(404).send({
-          message: `Cannot update Armor with id=${id}. Maybe Armor was not found!`,
+          message: `Cannot update User with id=${id}. Maybe User was not found!`,
         });
       } else
         res.send({
-          message: "Armor was updated successfully.",
+          message: "User was updated successfully.",
         });
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Armor with id=" + id,
+        message: "Error updating User with id=" + id,
       });
     });
 };
 
-// Delete a Homebrew Armor with the specified id in the request
+// Delete a User with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Armor.findByIdAndRemove(id)
+  User.findByIdAndRemove(id)
     .then((data) => {
       if (!data) {
         res.status(404).send({
-          message: `Cannot delete Armor with id=${id}. Maybe Armor was not found!`,
+          message: `Cannot delete User with id=${id}. Maybe User was not found!`,
         });
       } else {
         res.send({
-          message: "Armor was deleted successfully!",
+          message: "User was deleted successfully!",
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete Armor with id=" + id,
+        message: "Could not delete User with id=" + id,
       });
     });
 };
 
-// Delete all Homebrew Armors from the database.
+// Delete all Users from the database.
 exports.deleteAll = (req, res) => {
-  Armor.deleteMany({})
+  User.deleteMany({})
     .then((data) => {
       res.send({
-        message: `${data.deletedCount} Armors were deleted successfully!`,
+        message: `${data.deletedCount} Users were deleted successfully!`,
       });
     })
     .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while removing all Armors.",
+          err.message || "Some error occurred while removing all Users.",
       });
     });
 };

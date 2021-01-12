@@ -37,12 +37,13 @@ db.mongoose
     process.exit();
   });
 
-// ! start:: ROUTES
+// * start:: ROUTES
 // Landing route
 app.get("/", (req, res) => {
   res.send("LANDING - THE COMPENDIUM SERVER");
 });
 
+// 5e Resources
 // Homebrew Weapons Routes
 require("./app/routes/homebrew/homebrew-weapons.routes")(app);
 
@@ -57,7 +58,10 @@ require("./app/routes/homebrew/homebrew-npcs.routes")(app);
 
 // Homebrew Spells Routes
 require("./app/routes/homebrew/homebrew-spells.routes")(app);
-// ! end:: ROUTES
+
+// Auth
+require("./app/routes/auth/auth.routes")(app);
+// * end:: ROUTES
 
 // Set port, listen for requests
 const PORT = 8081;

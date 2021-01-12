@@ -1,27 +1,22 @@
 module.exports = (mongoose) => {
   var schema = mongoose.Schema(
     {
-      id: Number,
+      id: String,
       // start:: Official Schema
       name: String,
-      weapon_category: String,
-      weapon_range: String,
+      armor_category: String,
+      armor_class: {
+        base: Number,
+        dex_bonus: Boolean,
+        max_bonus: Number,
+      },
+      str_minimum: Number,
+      stealth_disadvantage: Boolean,
+      weight: Number,
       cost: {
         quantity: Number,
         unit: String,
       },
-      damage: {
-        damage_dice: String,
-        damage_type: {
-          name: String,
-        },
-      },
-      range: {
-        normal: Number,
-        long: Number,
-      },
-      weight: Number,
-      properties: Array,
       // end:: Official Schema
       requires_attunement: Boolean,
       rarity: String,
@@ -34,6 +29,6 @@ module.exports = (mongoose) => {
   );
 
   // ! This mongoose model names the collection in the database upon creation.
-  const Weapon = mongoose.model("homebrew_weapon", schema);
-  return Weapon;
+  const Armor = mongoose.model("homebrew_armor", schema);
+  return Armor;
 };

@@ -1,11 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+// TODO - Add cors.
 const cors = require("cors");
 
 const app = express();
 
+// todo - Add origins to cors.
 var corsOptions = {
-  origin: "http://localhost:1900"
+  origin: ["https://the-compendium.web.app", "http://localhost:1900"],
 };
 
 // CORs
@@ -22,22 +24,23 @@ const db = require("./app/models");
 db.mongoose
   .connect(db.url, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
   .then(() => {
     console.log("CONNECTED - THE COMPENDIUM DATABASE API");
   })
-  .catch(err => {
+  .catch((err) => {
     console.log("CANNOT CONNECT - THE COMPENDIUM DATABASE API", err);
     process.exit();
   });
 
-// ! start:: ROUTES
+// * start:: ROUTES
 // Landing route
 app.get("/", (req, res) => {
   res.send("LANDING - THE COMPENDIUM SERVER");
 });
 
+// 5e Resources
 // Homebrew Weapons Routes
 require("./app/routes/homebrew/homebrew-weapons.routes")(app);
 
@@ -52,10 +55,14 @@ require("./app/routes/homebrew/homebrew-npcs.routes")(app);
 
 // Homebrew Spells Routes
 require("./app/routes/homebrew/homebrew-spells.routes")(app);
-// ! end:: ROUTES
+
+// Auth
+require("./app/routes/auth/auth.routes")(app);
+// * end:: ROUTES
 
 // Set port, listen for requests
-const PORT = process.env.PORT || 8081;
+const PORT = 8081;
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
