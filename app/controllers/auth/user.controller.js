@@ -5,12 +5,12 @@ exports.create = (req, res) => {
   // ! start:: Validate request
   // todo:: Validate other fields:
 
-  if (!req.body.name) {
-    res.status(400).send({
-      message: "name can not be empty!",
-    });
-    return;
-  }
+  // if (!req.body.name) {
+  //   res.status(400).send({
+  //     message: "name can not be empty!",
+  //   });
+  //   return;
+  // }
   // ! end:: Validate request
 
   // Create a User
@@ -150,7 +150,42 @@ exports.deleteAll = (req, res) => {
     });
 };
 
-// AUTH - Find a single User by an email
+// * Storyboard - Update User storyboard
+exports.update = (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Storyboard to update can not be empty!",
+    });
+  }
+
+  const id = req.params.id;
+  const body = req.body;
+
+  User.findByIdAndUpdate(
+    id,
+    { $set: { "userSettings.storyboard": body } },
+    {
+      useFindAndModify: false,
+    }
+  )
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot update User's storyboard with id=${id}. Maybe User was not found!`,
+        });
+      } else
+        res.send({
+          message: "User's storyboard was updated successfully.",
+        });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error updating User's storyboard with id=" + id,
+      });
+    });
+};
+
+// * AUTH - Find a single User by an email
 exports.findByEmail = (req, res) => {
   const reqEmail = req.body.email;
   const reqPassword = req.body.password;

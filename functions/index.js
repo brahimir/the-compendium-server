@@ -1,5 +1,5 @@
 // Initialize Firebase Functions
-const functions = require('firebase-functions');
+const functions = require("firebase-functions");
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -10,7 +10,7 @@ const app = express();
 
 // todo - Add origins to cors.
 var corsOptions = {
-  origin: ["https://the-compendium.web.app", "http://localhost:1900"]
+  origin: ["https://the-compendium.web.app", "http://localhost:1900"],
 };
 
 // CORs
@@ -27,12 +27,12 @@ const db = require("./app/models");
 db.mongoose
   .connect(db.url, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
   .then(() => {
     console.log("CONNECTED - THE COMPENDIUM DATABASE API");
   })
-  .catch(err => {
+  .catch((err) => {
     console.log("CANNOT CONNECT - THE COMPENDIUM DATABASE API", err);
     process.exit();
   });
@@ -59,7 +59,10 @@ require("./app/routes/homebrew/homebrew-npcs.routes")(app);
 // Homebrew Spells Routes
 require("./app/routes/homebrew/homebrew-spells.routes")(app);
 
-// Auth
+// Storyboard Routes
+require("./app/routes/dm_tools/storyboard.routes")(app);
+
+// * Auth
 require("./app/routes/auth/auth.routes")(app);
 // * end:: ROUTES
 
@@ -70,4 +73,4 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
-exports.app = functions.https.onRequest(app)
+exports.app = functions.https.onRequest(app);

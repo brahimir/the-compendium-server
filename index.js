@@ -56,7 +56,10 @@ require("./app/routes/homebrew/homebrew-npcs.routes")(app);
 // Homebrew Spells Routes
 require("./app/routes/homebrew/homebrew-spells.routes")(app);
 
-// Auth
+// Storyboard Routes
+require("./app/routes/dm_tools/storyboard.routes")(app);
+
+// * Auth
 require("./app/routes/auth/auth.routes")(app);
 // * end:: ROUTES
 

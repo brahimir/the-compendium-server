@@ -9,23 +9,23 @@ module.exports = (mongoose) => {
       refreshToken: String,
       roles: Array,
       fullName: String,
-      user_settings: {
-        user_dashboard: Array,
-        user_storyboard: {
-          plots_main:{
+      userSettings: {
+        dashboard: Array,
+        storyboard: {
+          plotsMain: {
             title: String,
-            description: String
+            description: String,
           },
-          plots_in_progress:{
+          plotsInProgress: {
             title: String,
-            description: String
+            description: String,
           },
-          plots_done:{
+          plotsDone: {
             title: String,
-            description: String
+            description: String,
           },
-        }
-      }
+        },
+      },
     },
     {
       timestamps: true,
