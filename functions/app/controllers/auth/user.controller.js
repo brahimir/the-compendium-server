@@ -23,7 +23,7 @@ exports.create = (req, res) => {
     refreshToken: req.body.refreshToken,
     roles: req.body.roles,
     fullName: req.body.fullName,
-    user_settings: req.body.user_settings,
+    userSettings: req.body.userSettings,
   });
 
   // Save User in the database
