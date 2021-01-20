@@ -23,7 +23,7 @@ exports.create = (req, res) => {
     refreshToken: req.body.refreshToken,
     roles: req.body.roles,
     fullName: req.body.fullName,
-    user_settings: req.body.user_settings,
+    userSettings: req.body.userSettings,
   });
 
   // Save User in the database
@@ -151,7 +151,7 @@ exports.deleteAll = (req, res) => {
 };
 
 // * Storyboard - Update User storyboard
-exports.update = (req, res) => {
+exports.updateStoryboard = (req, res) => {
   if (!req.body) {
     return res.status(400).send({
       message: "Storyboard to update can not be empty!",
@@ -163,7 +163,7 @@ exports.update = (req, res) => {
 
   User.findByIdAndUpdate(
     id,
-    { $set: { "userSettings.storyboard": body } },
+    { $set: { "userSettings.dmTools.storyboard": body } },
     {
       useFindAndModify: false,
     }
@@ -185,7 +185,42 @@ exports.update = (req, res) => {
     });
 };
 
-// * AUTH - Find a single User by an email
+// * Sessions - Update User sessions by ID
+exports.updateSessions = (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Session Summaries to update can not be empty!",
+    });
+  }
+
+  const id = req.params.id;
+  const body = req.body;
+
+  User.findByIdAndUpdate(
+    id,
+    { $set: { "userSettings.dmTools.sessions": body } },
+    {
+      useFindAndModify: false,
+    }
+  )
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot update User's Session Summaries with id=${id}. Maybe User was not found!`,
+        });
+      } else
+        res.send({
+          message: "User's Session Summaries was updated successfully.",
+        });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error updating User's Session Summaries with id=" + id,
+      });
+    });
+};
+
+// todo AUTH - Find a single User by an email
 exports.findByEmail = (req, res) => {
   const reqEmail = req.body.email;
   const reqPassword = req.body.password;

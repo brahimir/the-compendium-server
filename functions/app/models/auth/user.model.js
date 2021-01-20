@@ -11,19 +11,14 @@ module.exports = (mongoose) => {
       fullName: String,
       userSettings: {
         dashboard: Array,
-        storyboard: {
-          plotsMain: {
-            title: String,
-            description: String,
+        dmTools: {
+          campaigns: Array,
+          storyboard: {
+            plotsMain: Array,
+            plotsInProgress: Array,
+            plotsDone: Array,
           },
-          plotsInProgress: {
-            title: String,
-            description: String,
-          },
-          plotsDone: {
-            title: String,
-            description: String,
-          },
+          sessions: Array,
         },
       },
     },

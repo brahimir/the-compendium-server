@@ -4,7 +4,7 @@ module.exports = app => {
     var router = require("express").Router();
 
     // Update a storyboard User with id
-    router.put("/:id", users.update);
+    router.put("/:id", users.updateStoryboard);
 
     app.use('/api/users/storyboard', router);
 };

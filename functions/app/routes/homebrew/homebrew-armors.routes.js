@@ -18,7 +18,7 @@ module.exports = app => {
     // Delete a HomebrewArmor with id
     router.delete("/:id", homebrewArmors.delete);
 
-    // Create a new HomebrewArmor
+    // Delete all HomebrewArmor
     router.delete("/", homebrewArmors.deleteAll);
 
     app.use('/api/homebrewArmors', router);
