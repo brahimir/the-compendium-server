@@ -1,21 +1,68 @@
 const db = require("../../models");
 const User = db.users;
 
-exports.create = (req, res) => {
+exports.register = (req, res) => {
   // ! start:: Validate request
   // todo:: Validate other fields:
+  if (!req.body.username) {
+    res.status(400).send({
+      message: "username can not be empty!",
+    });
+    return;
+  }
 
-  // if (!req.body.name) {
-  //   res.status(400).send({
-  //     message: "name can not be empty!",
-  //   });
-  //   return;
-  // }
+  if (!req.body.password) {
+    res.status(400).send({
+      message: "password can not be empty!",
+    });
+    return;
+  }
+
+  if (!req.body.email) {
+    res.status(400).send({
+      message: "email can not be empty!",
+    });
+    return;
+  }
+
+  if (!req.body.accessToken) {
+    res.status(400).send({
+      message: "accessToken can not be empty!",
+    });
+    return;
+  }
+
+  if (!req.body.refreshToken) {
+    res.status(400).send({
+      message: "refreshToken can not be empty!",
+    });
+    return;
+  }
+
+  if (!req.body.roles) {
+    res.status(400).send({
+      message: "roles can not be empty!",
+    });
+    return;
+  }
+
+  if (!req.body.fullName) {
+    res.status(400).send({
+      message: "fullName can not be empty!",
+    });
+    return;
+  }
+
+  if (!req.body.userSettings) {
+    res.status(400).send({
+      message: "userSettings can not be empty!",
+    });
+    return;
+  }
   // ! end:: Validate request
 
   // Create a User
   const newUser = new User({
-    name: req.body.name,
     username: req.body.username,
     password: req.body.password,
     email: req.body.email,
