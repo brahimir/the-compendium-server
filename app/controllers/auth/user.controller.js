@@ -2,8 +2,7 @@ const db = require("../../models");
 const User = db.users;
 
 exports.register = (req, res) => {
-  // ! start:: Validate request
-  // todo:: Validate other fields:
+  // ! start:: Validate request for creating new User
   if (!req.body.username) {
     res.status(400).send({
       message: "username can not be empty!",
@@ -61,6 +60,7 @@ exports.register = (req, res) => {
   }
   // ! end:: Validate request
 
+  // * CRUD
   // Create a User
   const newUser = new User({
     username: req.body.username,
@@ -197,7 +197,103 @@ exports.deleteAll = (req, res) => {
     });
 };
 
-// * Storyboard - Update User storyboard
+// * Virtual Screen
+// GET Virtual Screen
+exports.getVirtualScreen = (req, res) => {
+  const id = req.params.id;
+
+  User.findById(id)
+    .then((data) => {
+      if (!data)
+        res.status(404).send({
+          message: "virtualScreen not found User with id " + id,
+        });
+      else {        
+        let userVirtualScreen = data.userSettings.virtualScreen;
+        console.log(userVirtualScreen);
+        res.send(userVirtualScreen);
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error retrieving virtualScreen with User id=" + id,
+        error: err,
+      });
+    });
+};
+
+// UPDATE Virtual Screen
+exports.updateVirtualScreen = (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "virtualScreen to update can not be empty!",
+    });
+  }
+
+  const id = req.params.id;
+  const body = req.body;
+
+  console.log(body);
+
+  User.findByIdAndUpdate(
+    id,
+    { $set: { "userSettings.virtualScreen": body } },
+    {
+      useFindAndModify: false,
+    }
+  )
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot update User's virtualScreen with id=${id}. Maybe User was not found!`,
+        });
+      } else
+        res.send({
+          message: "User's virtualScreen was updated successfully.",
+        });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error updating User's virtualScreen with id=" + id,
+      });
+    });
+};
+
+// * Storyboard
+// todo -GET Storyboard
+exports.getStoryboard = (req, res) => {
+  // if (!req.body) {
+  //   return res.status(400).send({
+  //     message: "Storyboard to update can not be empty!",
+  //   });
+  // }
+  // const id = req.params.id;
+  // const body = req.body;
+  // User.findByIdAndUpdate(
+  //   id,
+  //   { $set: { "userSettings.dmTools.storyboard": body } },
+  //   {
+  //     useFindAndModify: false,
+  //   }
+  // )
+  //   .then((data) => {
+  //     if (!data) {
+  //       res.status(404).send({
+  //         message: `Cannot update User's storyboard with id=${id}. Maybe User was not found!`,
+  //       });
+  //     } else
+  //       res.send({
+  //         message: "User's storyboard was updated successfully.",
+  //       });
+  //   })
+  //   .catch((err) => {
+  //     res.status(500).send({
+  //       message: "Error updating User's storyboard with id=" + id,
+  //     });
+  //   });
+};
+
+// UPDATE Storyboard
 exports.updateStoryboard = (req, res) => {
   if (!req.body) {
     return res.status(400).send({
@@ -232,7 +328,8 @@ exports.updateStoryboard = (req, res) => {
     });
 };
 
-// * Sessions - Update User sessions by ID
+// * Sessions
+// UPDATE Sessions by ID
 exports.updateSessions = (req, res) => {
   if (!req.body) {
     return res.status(400).send({
@@ -267,7 +364,8 @@ exports.updateSessions = (req, res) => {
     });
 };
 
-// todo AUTH - Find a single User by an email
+// * AUTH
+// todo - Find a single User by an email
 exports.findByEmail = (req, res) => {
   const reqEmail = req.body.email;
   const reqPassword = req.body.password;

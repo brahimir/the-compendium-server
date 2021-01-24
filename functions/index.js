@@ -63,6 +63,12 @@ require("./app/routes/homebrew/homebrew-npcs.routes")(app);
 require("./app/routes/homebrew/homebrew-spells.routes")(app);
 
 // * DM Tools
+// Dashboard Routes
+// todo
+
+// Virtual Screen Routes
+require("./app/routes/dm_tools/virtual-screen.routes")(app);
+
 // Storyboard Routes
 require("./app/routes/dm_tools/storyboard.routes")(app);
 

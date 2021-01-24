@@ -3,6 +3,7 @@ module.exports = app => {
 
     var router = require("express").Router();
 
+    // * CRUD
     // Create a new User
     router.post("/register-user", users.register);
 

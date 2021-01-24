@@ -1,10 +1,14 @@
-module.exports = app => {
-    const users = require("../../controllers/auth/user.controller.js");
+module.exports = (app) => {
+  const users = require("../../controllers/auth/user.controller.js");
 
-    var router = require("express").Router();
+  var router = require("express").Router();
 
-    // Update a storyboard User with id
-    router.put("/:id", users.updateStoryboard);
+  // * CRUD
+  // GET a User's Storyboard by ID
+  router.get("/get/:id", users.getStoryboard);
 
-    app.use('/api/users/storyboard', router);
+  // UPDATE a User's Storyboard by ID
+  router.put("/update/:id", users.updateStoryboard);
+
+  app.use("/api/users/storyboard", router);
 };

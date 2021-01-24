@@ -11,6 +11,7 @@ module.exports = (mongoose) => {
       fullName: String,
       userSettings: {
         dashboard: Array,
+        virtualScreen: Array,
         dmTools: {
           campaigns: Array,
           storyboard: {
