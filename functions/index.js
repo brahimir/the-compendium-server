@@ -3,14 +3,18 @@ const functions = require("firebase-functions");
 
 const express = require("express");
 const bodyParser = require("body-parser");
-// TODO - Add cors.
 const cors = require("cors");
 
 const app = express();
 
-// todo - Add origins to cors.
+// ! Cors
 var corsOptions = {
-  origin: ["https://the-compendium.web.app", "http://localhost:1900"],
+  origin: [
+    "https://the-compendium.web.app",
+    "https://www.the-compendium.ca",
+    "https://the-compendium.ca",
+    "http://localhost:1900",
+  ],
 };
 
 // CORs
@@ -74,6 +78,9 @@ require("./app/routes/dm_tools/storyboard.routes")(app);
 
 // Session Summaries Routes
 require("./app/routes/dm_tools/sessions.routes")(app);
+
+// Combat Tracker Routes
+require("./app/routes/dm_tools/combat-tracker.routes")(app);
 
 // * Auth
 require("./app/routes/auth/auth.routes")(app);

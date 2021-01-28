@@ -207,16 +207,21 @@ exports.getVirtualScreen = (req, res) => {
       if (!data)
         res.status(404).send({
           message: "virtualScreen not found User with id " + id,
+          status: 400,
         });
       else {
         let userVirtualScreen = data.userSettings.virtualScreen;
-        console.log(userVirtualScreen);
-        res.send(userVirtualScreen);
+        res.status(200).send({
+          message: "virtualScreen successfully retrieved with id " + id,
+          status: 200,
+          virtualScreen: userVirtualScreen,
+        });
       }
     })
     .catch((err) => {
       res.status(500).send({
         message: "Error retrieving virtualScreen with User id=" + id,
+        status: 500,
         error: err,
       });
     });
@@ -246,51 +251,50 @@ exports.updateVirtualScreen = (req, res) => {
       if (!data) {
         res.status(404).send({
           message: `Cannot update User's virtualScreen with id=${id}. Maybe User was not found!`,
+          status: 404,
         });
       } else
         res.send({
           message: "User's virtualScreen was updated successfully.",
+          status: 200,
         });
     })
     .catch((err) => {
       res.status(500).send({
         message: "Error updating User's virtualScreen with id=" + id,
+        status: 500,
       });
     });
 };
 
 // * Storyboard
-// todo -GET Storyboard
+// GET Storyboard
 exports.getStoryboard = (req, res) => {
-  // if (!req.body) {
-  //   return res.status(400).send({
-  //     message: "Storyboard to update can not be empty!",
-  //   });
-  // }
-  // const id = req.params.id;
-  // const body = req.body;
-  // User.findByIdAndUpdate(
-  //   id,
-  //   { $set: { "userSettings.dmTools.storyboard": body } },
-  //   {
-  //     useFindAndModify: false,
-  //   }
-  // )
-  //   .then((data) => {
-  //     if (!data) {
-  //       res.status(404).send({
-  //         message: `Cannot update User's storyboard with id=${id}. Maybe User was not found!`,
-  //       });
-  //     } else
-  //       res.send({
-  //         message: "User's storyboard was updated successfully.",
-  //       });
-  //   })
-  //   .catch((err) => {
-  //     res.status(500).send({
-  //       message: "Error updating User's storyboard with id=" + id,
-  //     });
-  //   });
+  const id = req.params.id;
+
+  User.findById(id)
+    .then((data) => {
+      if (!data)
+        res.status(404).send({
+          message: "storyboard not found User with id " + id,
+          status: 400,
+        });
+      else {
+        let storyboard = data.userSettings.dmTools.storyboard;
+        res.status(200).send({
+          message: "storyboard successfully retrieved with id " + id,
+          status: 200,
+          storyboard: storyboard,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error retrieving storyboard with User id=" + id,
+        status: 500,
+        error: err,
+      });
+    });
 };
 
 // UPDATE Storyboard
@@ -298,6 +302,7 @@ exports.updateStoryboard = (req, res) => {
   if (!req.body) {
     return res.status(400).send({
       message: "Storyboard to update can not be empty!",
+      status: 400,
     });
   }
 
@@ -317,13 +322,15 @@ exports.updateStoryboard = (req, res) => {
           message: `Cannot update User's storyboard with id=${id}. Maybe User was not found!`,
         });
       } else
-        res.send({
+        res.status(200).send({
           message: "User's storyboard was updated successfully.",
+          status: 200,
         });
     })
     .catch((err) => {
       res.status(500).send({
         message: "Error updating User's storyboard with id=" + id,
+        status: 500,
       });
     });
 };
@@ -351,15 +358,87 @@ exports.updateSessions = (req, res) => {
       if (!data) {
         res.status(404).send({
           message: `Cannot update User's Session Summaries with id=${id}. Maybe User was not found!`,
+          status: 404,
         });
       } else
-        res.send({
+        res.status(200).send({
           message: "User's Session Summaries was updated successfully.",
+          status: 200,
         });
     })
     .catch((err) => {
       res.status(500).send({
         message: "Error updating User's Session Summaries with id=" + id,
+        status: 500,
+      });
+    });
+};
+
+// * Combat Tracker
+// GET Combat Tracker
+exports.getCombatTracker = (req, res) => {
+  const id = req.params.id;
+
+  User.findById(id)
+    .then((data) => {
+      if (!data)
+        res.status(404).send({
+          message: "Combat Tracker not found User with id " + id,
+          status: 400,
+        });
+      else {
+        let combatTracker = data.userSettings.dmTools.combatTracker;
+        console.log(combatTracker);
+        res.status(200).send({
+          message: "Combat Tracker successfully retrieved for id " + id,
+          status: 200,
+          combatTracker: combatTracker,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error retrieving Combat Tracker with User id=" + id,
+        status: 500,
+        error: err,
+      });
+    });
+};
+
+// UPDATE Combat Tracker
+exports.updateCombatTracker = (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Combat Tracker to update can not be empty!",
+      status: 400,
+    });
+  }
+
+  const id = req.params.id;
+  const body = req.body;
+
+  User.findByIdAndUpdate(
+    id,
+    { $set: { "userSettings.dmTools.combatTracker": body } },
+    {
+      useFindAndModify: false,
+    }
+  )
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot update User's Combat Tracker with id=${id}. Maybe User was not found!`,
+        });
+      } else
+        res.status(200).send({
+          message: "User's Combat Tracker was updated successfully.",
+          status: 200,
+        });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error updating User's Combat Tracker with id=" + id,
+        status: 500,
       });
     });
 };
@@ -376,25 +455,24 @@ exports.findByEmail = (req, res) => {
 
       if (!data) {
         res.status(404).send({
-          status: 404,
           message: "Not found User with email " + reqEmail,
+          status: 404,
         });
       } else {
         if (reqPassword === data.password) {
           res.send(data);
         } else {
           res.status(404).send({
-            status: 404,
             message: "Passwords do not match at " + reqEmail,
+            status: 404,
           });
         }
       }
     })
     .catch((err) => {
       res.status(500).send({
-        status: 500,
-        error: err,
         message: "Error retrieving User with email=" + reqEmail,
+        status: 500,
       });
     });
 };

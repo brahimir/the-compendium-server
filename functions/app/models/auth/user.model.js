@@ -20,6 +20,10 @@ module.exports = (mongoose) => {
             plotsDone: Array,
           },
           sessions: Array,
+          combatTracker: {
+            players: Array,
+            npcs: Array,
+          },
         },
       },
     },
