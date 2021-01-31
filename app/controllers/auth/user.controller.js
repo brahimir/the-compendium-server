@@ -387,12 +387,11 @@ exports.getCombatTracker = (req, res) => {
           status: 400,
         });
       else {
-        let combatTracker = data.userSettings.dmTools.combatTracker;
-        console.log(combatTracker);
+        let combatTrackers = data.userSettings.dmTools.combatTrackers;
         res.status(200).send({
           message: "Combat Tracker successfully retrieved for id " + id,
           status: 200,
-          combatTracker: combatTracker,
+          combatTrackers: combatTrackers,
         });
       }
     })
@@ -419,7 +418,7 @@ exports.updateCombatTracker = (req, res) => {
 
   User.findByIdAndUpdate(
     id,
-    { $set: { "userSettings.dmTools.combatTracker": body } },
+    { $set: { "userSettings.dmTools.combatTrackers": body } },
     {
       useFindAndModify: false,
     }
