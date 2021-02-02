@@ -3,7 +3,10 @@ module.exports = (app) => {
 
   var router = require("express").Router();
 
-  // Update session summaries by User id
+  // Get Session Summaries by User ID
+  router.get("/get/:id", users.getSessions);
+
+  // Update Session Summaries by User ID
   router.put("/update/:id", users.updateSessions);
 
   app.use("/api/users/sessions", router);

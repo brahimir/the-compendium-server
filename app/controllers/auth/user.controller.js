@@ -335,8 +335,37 @@ exports.updateStoryboard = (req, res) => {
     });
 };
 
-// * Sessions
-// UPDATE Sessions by ID
+// * Session Summaries
+// todo - GET Sessions by User ID
+exports.getSessions = (req, res) => {
+  const id = req.params.id;
+
+  User.findById(id)
+    .then((data) => {
+      if (!data)
+        res.status(404).send({
+          message: "Session Summaries not found User with id " + id,
+          status: 400,
+        });
+      else {
+        let sessions = data.userSettings.dmTools.sessions;
+        res.status(200).send({
+          message: "Session Summaries successfully retrieved for id " + id,
+          status: 200,
+          sessions: sessions,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error retrieving Session Summaries with User id=" + id,
+        status: 500,
+        error: err,
+      });
+    });
+};
+
+// UPDATE Sessions by User ID
 exports.updateSessions = (req, res) => {
   if (!req.body) {
     return res.status(400).send({
