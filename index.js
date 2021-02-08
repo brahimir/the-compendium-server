@@ -40,7 +40,7 @@ db.mongoose
 
 // ! start:: ROUTES
 // * Landing route
-app.get("/", (req, res) => {
+app.get("/", (res) => {
   res.send("LANDING - THE COMPENDIUM SERVER");
 });
 

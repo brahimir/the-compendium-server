@@ -50,6 +50,7 @@ exports.create = (req, res) => {
     special_abilities: req.body.special_abilities,
     actions: req.body.actions,
     legendary_actions: req.body.legendary_actions,
+    xp: req.body.xp,
     ratings: req.body.ratings,
   });
 
