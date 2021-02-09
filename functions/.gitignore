@@ -1,1 +1,5 @@
-node_modules/
+# Config
+/app/config
+
+# Dependencies
+/node_modules
