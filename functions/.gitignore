@@ -1,5 +1,5 @@
 # Config
-/app/config
+/functions/app/config
 
 # Dependencies
 /node_modules
